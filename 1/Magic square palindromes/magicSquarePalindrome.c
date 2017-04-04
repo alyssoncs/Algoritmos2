@@ -44,39 +44,17 @@ int main(void)
 	return 0;
 }
 
+
+
 int is_magic_square(char *str, int N)
 {
-	
-	int boxSize = N;
-
-	if (boxSize * boxSize != strlen(str))
-		return 0;
-
-	int end = strlen(str) - 1;
-	int goTo = strlen(str) / 2;
-
-	int main;
-	for (main = 0; main <= goTo; ++main)
-	{
-		if (str[main] != str[end - main])
-		{
-			return 0;
-		}
-	}
-
-	return boxSize;
-	
-}
-
-/*int is_magic_square(char *str, int N)
-{
 	int i, j;
-	/*int ltr, rtl, topDown, bottomUp;
+	int ltr, rtl, topDown, bottomUp;
 		
 	ltr = topDown = 0;
-	rtl = bottomUp = N*N-1;*/
+	rtl = bottomUp = N*N-1;
 	
-	/*int start, end;
+	int start, end;
 	
 	if(N*N != strlen(str))
 		return 0;
@@ -85,13 +63,13 @@ int is_magic_square(char *str, int N)
 	end = N*N-1;
 	for(i=0; i<(N*N)/2+(N*N)%2; i++)
 	{
-		if(str[start] != str[end])
+		/*if(str[start] != str[end])
 		{
 			return 0;
 		}
 		start++;
-		end--;
-		/*if((str[ltr] != str[rtl] || str[ltr] != str[topDown] || str[ltr] != str[bottomUp]))
+		end--;*/
+		if((str[ltr] != str[rtl] || str[ltr] != str[topDown] || str[ltr] != str[bottomUp]))
 		{
 			return 0;
 		}
@@ -99,15 +77,14 @@ int is_magic_square(char *str, int N)
 		ltr++;
 		rtl--;
 		topDown = (topDown >= N*(N-1)) ? topDown%N+1 : topDown+N;
-		bottomUp = (bottomUp <= N-1) ? bottomUp+N*(N-1)-1 : bottomUp-N;*/
-	/*	
+		bottomUp = (bottomUp <= N-1) ? bottomUp+N*(N-1)-1 : bottomUp-N;
+		
 	}
 	
 	
 	return 1;
 }
 
-*/
 
 
 
