@@ -40,10 +40,10 @@ int MagicBoxSize(const std::string phrase)
 	
 	start = 0;
 	end = N*N-1;
-	for(i=0; i<(N*N)/2+(N*N)%2; i++)
+	for(i=0; i<=(end+1)/2; i++)
 	{
 		
-		if((phrase[ltr] != phrase[rtl] || phrase[ltr] != phrase[topDown] || phrase[ltr] != phrase[bottomUp]))
+		/*if((phrase[ltr] != phrase[rtl] || phrase[ltr] != phrase[topDown] || phrase[ltr] != phrase[bottomUp]))
 		{
 			return 0;
 		}
@@ -51,32 +51,19 @@ int MagicBoxSize(const std::string phrase)
 		ltr++;
 		rtl--;
 		topDown = (topDown >= N*(N-1)) ? topDown%N+1 : topDown+N;
-		bottomUp = (bottomUp <= N-1) ? bottomUp+N*(N-1)-1 : bottomUp-N;
+		bottomUp = (bottomUp <= N-1) ? bottomUp+N*(N-1)-1 : bottomUp-N;*/
+		if(phrase[start] != phrase[end])
+		{
+			return 0;
+		}
+		start++;
+		end--;
 		
 	}
 	
 	
 	return 1;
 	
-	/*----------------------*/
-    
-	/*int boxSize = sqrt(phrase.size());
-    
-    if (boxSize * boxSize != phrase.size())
-        return 0;
-    
-    int end = phrase.size() - 1;
-    int goTo = phrase.size() / 2;
-    
-    for (int main = 0; main <= goTo; ++main)
-    {
-        if (phrase[main] != phrase[end - main])
-        {
-            return 0;
-        }
-    }
-    
-    return boxSize;*/
 }
 
 
