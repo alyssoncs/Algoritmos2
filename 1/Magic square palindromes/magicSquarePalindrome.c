@@ -1,3 +1,8 @@
+/*
+* Autor: Alysson Cirilo Silva
+* UVA não está aceitando
+*/
+
 #include <stdio.h>
 #include <ctype.h>
 #include <math.h>

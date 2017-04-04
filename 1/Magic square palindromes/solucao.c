@@ -1,3 +1,8 @@
+/*
+* Versão em C de solucao.cpp
+* UVA não está aceitando
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -16,6 +21,7 @@ char *Convert(char *line)
 			j++;
 		}
 	}
+	phrase[j] = '\0';
 
 	return phrase;
 }
@@ -46,7 +52,7 @@ int MagicBoxSize(char *phrase)
 int main(void)
 {
 	char entrada[14];
-	char line[20000];
+	char line[10000];
 	char *phrase;
 
 	int T;
