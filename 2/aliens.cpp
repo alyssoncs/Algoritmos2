@@ -1,6 +1,8 @@
 #include <stdio.h> 
 #include <algorithm>
+
 using namespace std;
+
 int solve(int n, int a[]) {
     int b[1005];
     int ret = 0xfffffff;
@@ -25,6 +27,7 @@ int solve(int n, int a[]) {
     }
     return ret;
 }
+
 int main() {
     int n, i, j, k;
     int a[1005];
