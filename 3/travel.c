@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
 int travel(char *father, char *mother, int fidx, int midx)
 {
 	int best = 0;
-	int fidx_aux = fidx;
+	int fidx_aux;
 
 	char *mp = strchr(&mother[midx], father[fidx]);
 	if (mp == NULL)
@@ -39,9 +39,9 @@ int travel(char *father, char *mother, int fidx, int midx)
 		return best;
 	}
 
-	for (; fidx < strlen(father); fidx++)
+	for (fidx_aux = fidx; fidx_aux < strlen(father); fidx_aux++)
 	{
-		int aux = travel(father, mother, fidx, mother-mp+1);
+		int aux = travel(father, mother, fidx_aux, mother-mp+1);
 		if (aux > best)
 			best = aux;
 
