@@ -9,8 +9,6 @@ int main(int argc, char const *argv[])
 	char mother[1000];
 	int t = 0;
 
-	//scanf("%d", &t);
-	//getchar();
 	while (1)
 	{
 		t++;
