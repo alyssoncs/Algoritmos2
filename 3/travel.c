@@ -40,7 +40,6 @@ int travel(char *father, char *mother, int fidx, int midx)
 		int aux = travel(father, mother, fidx, mp-mother+1);
 		if (aux > best)
 			best = aux;
-
 	}
 
 	return best+1;
