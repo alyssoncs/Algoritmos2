@@ -29,13 +29,11 @@ int main(int argc, char const *argv[])
 
 int travel(char *father, char *mother)
 {
-	int best = 0;
-	int fidx;
+	int fidx, best = 0;
 
 	char *mp = strchr(mother, father[0]);
 	if (mp == NULL)
 	{
-		//printf ("entrou nessa bosta\nmother = \"%s\"\nfather[0] = '%c'\n", mother, father[0]);
 		return best;
 	}
 
@@ -44,12 +42,7 @@ int travel(char *father, char *mother)
 		int aux = travel(&father[fidx], mp+1);
 		if (aux > best)
 			best = aux;
-
 	}
-
-	/*int aux = travel(father, mp+1);
-	if (aux > best)
-		best = aux;*/
 
 	return best+1;
 }
