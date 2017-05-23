@@ -35,12 +35,12 @@ int travel(char *father, char *mother)
 	char *mp = strchr(mother, father[0]);
 	if (mp == NULL)
 	{
-		printf ("entrou nessa bosta\nmother = \"%s\"\nfather[0] = '%c'\n", mother, father[0]);
+		//printf ("entrou nessa bosta\nmother = \"%s\"\nfather[0] = '%c'\n", mother, father[0]);
 		return best;
 	}
 
 	for (fidx = 1; fidx < strlen(father); fidx++) {
-		int aux = travel(&father[fidx], &mother[mp-mother+1]);
+		int aux = travel(&father[fidx], mp+1/*&mother[mp-mother+1]*/);
 		if (aux > best)
 			best = aux;
 
