@@ -39,7 +39,7 @@ int travel(char *father, char *mother, int fidx, int midx)
 		return best;
 	}
 
-	for (fidx = fidx+1; fidx < strlen(father); fidx++)
+	for (; fidx < strlen(father); fidx++)
 	{
 		int aux = travel(father, mother, fidx, mother-mp+1);
 		if (aux > best)
@@ -47,9 +47,9 @@ int travel(char *father, char *mother, int fidx, int midx)
 
 	}
 
-	int aux = travel(father, mother, fidx_aux, mother-mp+1);
+	/*int aux = travel(father, mother, fidx_aux, mother-mp+1);
 	if (aux > best)
-		best = aux;
+		best = aux;*/
 
 	return best+1;
 }
