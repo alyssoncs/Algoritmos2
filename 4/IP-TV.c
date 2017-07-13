@@ -774,93 +774,11 @@ double prim(graph *g, graph **out)
 		free(cost);
 		free(parent);
 		free(visited);
-		free(pq);
 		free(vertices);
+		destroy_heap(pq);
 	}
 	return sum;
 }
-
-
-/*
-   double prim(graph *g, graph **out)
-   {
-        double sum = 0.0;
-        double *cost = (double*)malloc(sizeof(double)*g->V);
-        size_t *parent = (size_t *)malloc(sizeof(size_t)*g->V);
-        if (g && g->weight)
-        {
-
-                vertex *w_vertex;
-                int *visited = (int*)calloc(g->V, sizeof(int));
-                heap *pq = create_heap(g->V, cmp_vertex);
-
-                if (visited && pq && cost && parent)
-                {
-                        size_t i;
-                        for (i = 0; i < g->V; i++)
-                                cost[i] = DBL_MAX;
-                        cost[0] = 0.0;
-
-                        w_vertex = create_vertex(0, 0.0);
-                        heap_insert(pq, (void *)w_vertex);
-                        while (!heap_is_empty(pq))
-                        {
-                                w_vertex = (vertex *)heap_extract_min(pq);
-                                size_t u = w_vertex->u;
-                                free(w_vertex);
-
-                                visited[u] = 1;
-
-                                size_t v;
-                                for (v = 0; v < g->V; v++)
-                                {
-                                        if (g->adj[u][v] && g->weight[u][v] < cost[v] && !visited[v])
-                                        {
-                                                cost[v] = g->weight[u][v];
-                                                parent[v] = u;
-                                                w_vertex = create_vertex(v, cost[v]);
-                                                if (w_vertex)
-                                                        heap_insert(pq, (void *)w_vertex);
-                                                else return 0;
-                                        }
-                                }
-                                if (heap_is_empty(pq))
-                                {
-                                        for (i = 0; i < g->V; i++)
-                                        {
-                                                if (!visited[i])
-                                                {
-                                                        printf("\nVertice %zu n visitado\n", i);
-                                                }
-                                        }
-                                }
-
-                        }
-                        for (i = 1; i < g->V; i++)
-                                sum += cost[i];
-                        if (out)
-                        {
- * out = create_weighted_graph(g->V);
-                                if (*out)
-                                {
-                                        size_t u, v;
-                                        for (u = 1; u < g->V; u++)
-                                        {
-                                                v = parent[u];
-                                                add_edge(*out, u, v, cost[v]);
-                                                add_edge(*out, v, u, cost[v]);
-                                        }
-                                }
-                        }
-                }
-                free(cost);
-                free(parent);
-                free(visited);
-                free(pq);
-        }
-        return sum;
-   }
- */
 
 double *dijkstra(graph *g, size_t node)
 {
@@ -914,8 +832,8 @@ double *dijkstra(graph *g, size_t node)
 		else
 		{
 			free(visited);
-			free(pq);
 			free(w_vertex);
+			destroy_heap(pq);
 			cost = NULL;
 		}
 	}
