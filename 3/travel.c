@@ -13,12 +13,19 @@ int main(int argc, char const *argv[])
 	{
 		t++;
 
-		fgets(father, 101, stdin);
+		fgets(father, 102, stdin);
 		if (father[0] == '#') break;
-		fgets(mother, 101, stdin);
+		fgets(mother, 102, stdin);
 		father[strlen(father)-1] = '\0';
 		mother[strlen(mother)-1] = '\0';
-		int best = travel(father, mother);
+
+		int i, best = -1;
+		for (i = 0; i < strlen(father); i++) {
+			int aux = travel(&father[i], mother);
+			if (aux > best) {
+				best = aux;
+			}
+		}
 
 		printf("Case #%d: you can visit at most %d cities.\n", t, best);
 	}
