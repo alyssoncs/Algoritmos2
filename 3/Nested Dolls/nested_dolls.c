@@ -59,6 +59,12 @@ int main(void)
 			int dolls_left = m;
 			while (dolls_left) /* enquanto existir boneca */
 			{
+				printf("{");
+				for (i = 0; i < dolls_left; i++)
+				{
+					printf("(%d, %d), ", dolls[i].w, dolls[i].h);
+				}
+				printf("}\n");
 				int d = inner_doll(dolls, dolls_left, set);
 
 				/* exclui bonecas */
@@ -66,10 +72,18 @@ int main(void)
 				{
 					if (dj_set(set, i) == dj_set(set, d))
 					{
-						dolls[i].w = INT_MAX;
-						dolls[i].h = INT_MAX;
+						dolls[i].w = -1;
+						dolls[i].h = -1;
 					}
 				}
+
+				printf("{");
+				for (i = 0; i < dolls_left; i++)
+				{
+					printf("(%d, %d), ", dolls[i].w, dolls[i].h);
+				}
+				printf("}\n");
+
 				qsort(dolls, dolls_left, sizeof(doll), cmp);
 				reset_set(set, m);
 				dolls_left -= memo[d];
@@ -93,7 +107,7 @@ int inner_doll(doll *dolls, int n, int *set)
 	int i, j, aux_i = 0;
 	for (i = 0; i < n; i++)
 	{
-		int max = 0, aux_j = 0;
+		int max = 0, aux_j = i;
 		for (j = i-1; j >= 0; j--)
 		{
 			if (fits(&dolls[j], &dolls[i]))
