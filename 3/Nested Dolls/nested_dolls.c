@@ -32,6 +32,19 @@ int cmp(const void *a1, const void *a2) /* reverse comparison function */
 
 }
 
+int cmp2(const void *a1, const void *a2) /* reverse comparison function */
+{
+	doll *a = (doll *)a1;
+	doll *b = (doll *)a2;
+
+
+	if (a->w == b->w && a->h == a->h)
+		return 0;
+	if( a->h == b->h )
+		return a->w > b->w;
+    	return a->h < b->h;
+
+}
 
 int main(void)
 {
@@ -43,10 +56,10 @@ int main(void)
 		int m;
 		scanf("%d", &m);
 
-		int *set 	= create_set(m);
 		doll *dolls 	= (doll *)malloc(sizeof(doll)*m);
+		int *visited 	= (int *)calloc(m, sizeof(int));
 		memo 		= (int *)calloc(m, sizeof(int));
-		if (set && dolls && memo)
+		if (visited && dolls && memo)
 		{
 			int i;
 			for (i = 0; i < m; i++)
@@ -59,48 +72,78 @@ int main(void)
 			int dolls_left = m;
 			while (dolls_left) /* enquanto existir boneca */
 			{
-				printf("{");
-				for (i = 0; i < dolls_left; i++)
-				{
-					printf("(%d, %d), ", dolls[i].w, dolls[i].h);
-				}
-				printf("}\n");
-				int d = inner_doll(dolls, dolls_left, set);
+				int d = inner_doll(dolls, m, visited);
 
-				/* exclui bonecas */
-				for (i = 0; i < dolls_left; i++)
-				{
-					if (dj_set(set, i) == dj_set(set, d))
-					{
-						dolls[i].w = -1;
-						dolls[i].h = -1;
-					}
-				}
-
-				printf("{");
-				for (i = 0; i < dolls_left; i++)
-				{
-					printf("(%d, %d), ", dolls[i].w, dolls[i].h);
-				}
-				printf("}\n");
-
-				qsort(dolls, dolls_left, sizeof(doll), cmp);
-				reset_set(set, m);
 				dolls_left -= memo[d];
+				if (dolls_left < 0)
+				{
+					printf("fudeu\n");
+					exit(7);
+				}
 
-				memset(memo, 0, sizeof(int)*dolls_left);
-
+				memset(memo, 0, sizeof(int)*m);
 				count++;
 			}
 			printf("%d\n", count);
 		}
-		destroy_set(set);
+		free(visited);
 		free(dolls);
 		free(memo);
 	}
 	return 0;
 }
 
+int inner_doll(doll *dolls, int n, int *visited)
+{
+	int *parent = (int *)malloc(sizeof(int)*n);
+
+	if (parent)
+	{
+		int max_doll = 0;
+		int i, j;
+		for (i = 0; i < n; i++)
+			parent[i] = -1;
+
+		int aux_i = 0;
+		for (i = 0; i < n; i++)
+		{
+			int max = 0, aux_j = -1;
+			if (!visited[i])
+			{
+				for (j = i-1; j >= 0; j--)
+				{
+					if (!visited[j] && fits(&dolls[j], &dolls[i]))
+					{
+						int aux = memo[j];
+						if (aux > max)
+							max = aux, aux_j = j;
+					}
+				}
+
+				memo[i] = max+1;
+				parent[i] = aux_j;
+
+				if (memo[i] > max_doll)
+					max_doll = memo[i], aux_i = i;
+			}
+		}
+
+		for (i = aux_i; parent[i] != -1; i = parent[i])
+		{
+			visited[i] = 1;
+			/*printf("parent[%d] = %d\n", i, parent[i]);*/
+
+		}
+		visited[i] = 1;
+		/*printf("parent[%d] = %d\n", i, parent[i]);*/
+
+		free(parent);
+		return aux_i;
+
+	}
+}
+
+/*
 int inner_doll(doll *dolls, int n, int *set)
 {
 	int max_doll = 0;
@@ -124,7 +167,9 @@ int inner_doll(doll *dolls, int n, int *set)
 			max_doll = memo[i], aux_i = i;
 	}
 	return aux_i;
-}
+}*/
+
+
 
 int fits(doll *out, doll *inner)
 {
