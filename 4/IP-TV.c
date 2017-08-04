@@ -626,83 +626,6 @@ double kruskal(graph *g, graph **out)
 	return sum;
 }
 
-/*
-double prim(graph *g, graph  **out)
-{
-	int i, j;
-
-	size_t v;
-	size_t w;
-	double weight;
-	double dist;
-	if (g && g->weight)
-	{
-		double 	*distance 	= (double *)malloc(sizeof(double)*g->V);
-		size_t 	*parent 	= (size_t *)malloc(sizeof(size_t)*g->V);
-		int 	*intree 	= (int *)calloc(g->V, sizeof(int));
-
-		if (distance && parent && intree)
-		{
-			for (i = 1; i < g->V; i++)
-			{
-				distance[i] = DBL_MAX;
-				parent[i] = -1;
-			}
-			distance[0] = 0.0;
-			v = 0;
-
-			while (!intree[v])
-			{
-				intree[v] = 1;
-				for (i = 0; i < g->V; i++)
-				{
-					if (g->adj[v][i])
-					{
-						w = i;
-						weight = g->weight[v][i];
-						if ((distance[w] > weight) && !intree[w])
-						{
-							distance[w] = weight;
-							parent[w] = v;
-						}
-					}
-				}
-
-				v = 1;
-				dist = DBL_MAX;
-				for (i = 1; i < g->V; i++)
-				if (!intree[i] && dist > distance[i])
-				{
-					dist = distance[i];
-					v = i;
-				}
-			}
-
-			dist = 0.0;
-			for (i = 1; i < g->V; i++)
-				dist += distance[i];
-
-			if (out)
-			{
-				*out = create_weighted_graph(g->V);
-				if (*out)
-				{
-					for (i = 1; i < g->V; i++)
-					{
-						v = parent[i];
-						add_edge(*out, v, i, g->weight[v][i]);
-						add_edge(*out, i, v, g->weight[i][v]);
-					}
-				}
-
-			}
-			return dist;
-		}
-
-	}
-}
-*/
-
 double prim(graph *g, graph **out)
 {
 	double sum = 0.0;
@@ -733,7 +656,7 @@ double prim(graph *g, graph **out)
 			}
 			while (!heap_is_empty(pq))
 			{
-				vertex *w_vertex = (vertex*)heap_extract_min(pq);
+				vertex *w_vertex = (vertex *)heap_extract_min(pq);
 				size_t u = w_vertex->u;
 				free(w_vertex);
 
@@ -798,7 +721,7 @@ double *dijkstra(graph *g, size_t node)
 				cost[i] = DBL_MAX;
 			cost[node] = 0.0;
 
-			heap_insert(pq, (void*)w_vertex);
+			heap_insert(pq, (void *)w_vertex);
 			while (!heap_is_empty(pq))
 			{
 				w_vertex = (vertex*)heap_extract_min(pq);
